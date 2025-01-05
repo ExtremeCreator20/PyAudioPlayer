@@ -71,11 +71,11 @@ def play_audio_files(musicdir, audio_list=None):
                     info(f"Finished playing random audio ({auxf})")
             audionum += 1
             continue
-        info(f"Started playing {auxf}")
+        info(f"Started playing {audio_file}")
         file_path = os.path.join(musicdir, audio_file)
         player = audioplayer.AudioPlayer(file_path)
         player.play(block=True)
-        info(f"Finished playing {auxf}")
+        info(f"Finished playing {audio_file}")
         audionum += 1
         audio_list=ls
 
