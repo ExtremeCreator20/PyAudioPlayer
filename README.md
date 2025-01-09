@@ -22,3 +22,7 @@ If you downloaded the installer version, you need to create:
 1. Any playlist file in the PyAP directory
 2. Edit (or create) the _config.json_ file to you desired playlist file name
 3. Play audio!
+
+## Wiki
+
+You can view the wiki at [GitHub](https://github.com/ExtremeCreator20/PyAudioPlayer/wiki)
