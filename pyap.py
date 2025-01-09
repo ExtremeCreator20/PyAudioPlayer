@@ -1,4 +1,4 @@
-import os, datetime, random
+import os, datetime, random, json
 from logging import info, error, warning, debug, critical, exception, log
 import logging
 try:
@@ -19,6 +19,15 @@ datadir = os.path.expanduser("~/PyAP")
 os.makedirs(musicdir, exist_ok=True)
 os.makedirs(datadir, exist_ok=True)
 
+config_path = os.path.join(datadir, 'config.json')
+if not os.path.exists(config_path):
+    f = open(config_path, 'w')
+    f.write('{"playlist":"play.list"}')
+    f.close()
+
+if os.path.exists(datadir+"\\"+'config.json'):
+    config = open(datadir+"\\"+'config.json', 'r+')
+    options = json.load(config)
 
 
 logging.basicConfig(filename=datadir+"\\"+f"player-{datetime.date.today()}.log",level=logging.INFO, filemode="a", format='%(asctime)s - %(levelname)s - %(message)s')
@@ -47,9 +56,6 @@ def play_audio_files(musicdir, audio_list=None):
     for audio_file in audio_files:
         ls = lister()
         audio_file = ls[audionum]
-        #if ls[audionum] != audio_list[audionum]:
-        #    warning(f"Audio list file modified from cached, reloading list")
-        #    audio_file = ls[audionum]
         if "random" in audio_file.lower():
             adf = audio_file.removesuffix(".mp3").split("-")
             
@@ -82,7 +88,7 @@ def play_audio_files(musicdir, audio_list=None):
 
 
 def lister():
-    file = open(datadir+"\\"+'play.list', 'r')
+    file = open(datadir+"\\"+options["playlist"], 'r')
     audio_list = [line.strip()+".mp3" for line in file.readlines()]
     file.close()
     return audio_list
